@@ -11,7 +11,7 @@ class FHWormsWetterApplet(plasmascript.Applet):
         plasmascript.Applet.__init__(self, parent)
         self.reader = MeasurementReader()
         self.width = 200
-        self.height = 200
+        self.height = 100
 
     def _create_temperture_row(self):
         # Temperature
