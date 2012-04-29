@@ -1,0 +1,17 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=FH Worms Wetter
+Type=Service
+ServiceTypes=Plasma/Applet
+Icon=applications-internet
+X-Plasma-API=python
+X-Plasma-MainScript=code/main.py
+X-KDE-PluginInfo-Author=Christian Münch
+X-KDE-PluginInfo-Email=christian@muench-worms.de
+X-KDE-PluginInfo-Name=fhworms-wetter
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Website=http://plasma.kde.org/
+X-KDE-PluginInfo-Category=Internet
+X-KDE-PluginInfo-Depends=
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-EnabledByDefault=true
