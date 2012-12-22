@@ -10,16 +10,16 @@ class FHWormsWetterApplet(plasmascript.Applet):
     def __init__(self, parent, args=None):
         plasmascript.Applet.__init__(self, parent)
         self.reader = MeasurementReader()
-        self.width = 200
-        self.height = 100
-
+        self.width = 200            
+        self.height = 100        
+    
     def _create_temperture_row(self):
         # Temperature
         self.temperatureLabel = Plasma.Label(self.applet)
         self.temperatureLabel.setText(self.tr('Temperature:'))
         self.layout.addItem(self.temperatureLabel, 0, 0)
         self.temperatureValue = Plasma.Label(self.applet)
-        self.layout.addItem(self.temperatureValue, 0, 1)
+        self.layout.addItem(self.temperatureValue, 0, 1)    
 
     def _create_wind_row(self):
         # Wind
@@ -38,7 +38,7 @@ class FHWormsWetterApplet(plasmascript.Applet):
         self.layout.addItem(self.pressureValue, 2, 1)
 
     def _init_translations(self):
-        # Translation system
+        # Translation system        
         self.locale = QLocale.system().name()
         self.translator = QTranslator()
         if self.translator.load('lang_' + self.locale, ':/'):
@@ -69,11 +69,16 @@ class FHWormsWetterApplet(plasmascript.Applet):
         """
         Update GUI elements (triggered by timer)
         """
-        data = self.reader.read()
-        self.temperatureValue.setText("%s °C" % data.temperature)
-        self.pressureValue.setText("%s hPa" % data.pressure)
-        self.windValue.setText("%s Km/h %s" % (data.wind_speed, data.wind_direction))
-
+        try:
+            data = self.reader.read()
+            self.temperatureValue.setText("%s °C" % data.temperature)
+            self.pressureValue.setText("%s hPa" % data.pressure)
+            self.windValue.setText("%s Km/h %s" % (data.wind_speed, data.wind_direction))
+        except Exception:
+            self.temperatureValue.setText("%s °C" % '-')
+            self.pressureValue.setText("%s hPa" % '-')
+            self.windValue.setText("%s Km/h %s" % '-')
+            
     def timerEvent(self, event):
         """
         Timer event of applet

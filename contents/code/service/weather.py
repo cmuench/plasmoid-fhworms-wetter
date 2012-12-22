@@ -2,26 +2,28 @@ from urllib import urlopen
 import datetime
 
 class MeasurementReader(object):
-
     def __init__(self):
         self._url = "http://wetter.fh-worms.de/raw.php"
 
     def read(self):
-
-        f = urlopen(self._url)
-        raw_data = f.read()
-        raw_data_array = raw_data.split(';')
-
         data = MeasurementData()
-        data.time = str(raw_data_array[0])
-        data.pressure = str(raw_data_array[2])
-        data.temperature = raw_data_array[3]
-        data.wind_speed = raw_data_array[4]
-        data.wind_direction = raw_data_array[7]
+        try:
+            f = urlopen(self._url)
+            raw_data = f.read()
+            raw_data_array = raw_data.split(';')
+
+            data.time = str(raw_data_array[0])
+            data.pressure = str(raw_data_array[2])
+            data.temperature = raw_data_array[3]
+            data.wind_speed = raw_data_array[4]
+            data.wind_direction = raw_data_array[7]
+        except:
+            pass
+
         return data
 
-class MeasurementData(object):
 
+class MeasurementData(object):
     def __init__(self):
         self._time = None
         self._temperature = None
@@ -39,7 +41,8 @@ class MeasurementData(object):
     @time.setter
     def time(self, value):
         # String like 20120429131101
-        self._time = datetime.datetime(int(value[0:4]), int(value[4:6]), int(value[6:8]), int(value[8:10]), int(value[10:12]), int(value[12:14]))
+        self._time = datetime.datetime(int(value[0:4]), int(value[4:6]), int(value[6:8]), int(value[8:10]),
+            int(value[10:12]), int(value[12:14]))
 
     @property
     def temperature(self):
